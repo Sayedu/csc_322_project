@@ -1,0 +1,65 @@
+<html>
+
+<head>
+
+    <style>
+        body{
+        background:url("https://media0.giphy.com/media/40qxxf2K811TIS85Sn/giphy.gif") no-repeat center center fixed;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-attachment: fixed;
+        }
+    </style>
+
+
+</head>
+
+{% extends "base.html" %}
+
+<body>
+{% block content %}
+
+<center>
+     <h1 style="color:white;">Register</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p style="color:white;" ><font size="5">
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}<br>
+            {% for error in form.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </font>
+        </p>
+        <p style="color:white;" ><font size="5">
+            {{ form.email.label }}<br>
+            {{ form.email(size=32) }}<br>
+            {% for error in form.email.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </font>
+        </p>
+        <p style="color:white;" ><font size="5">
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}<br>
+            {% for error in form.password.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </font>
+        </p>
+        <p style="color:white;" ><font size="5">
+            {{ form.password2.label }}<br>
+            {{ form.password2(size=32) }}<br>
+            {% for error in form.password2.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </font>
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+    </center>
+{% endblock %}
+
+</body>
+</html>

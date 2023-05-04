@@ -1,0 +1,54 @@
+<html>
+
+<head>
+
+    <style>
+        body{
+        background:url("https://media0.giphy.com/media/40qxxf2K811TIS85Sn/giphy.gif") no-repeat center center fixed;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-attachment: fixed;
+        }
+    </style>
+
+
+</head>
+
+
+{% extends "base.html" %}
+
+<body>
+{% block content %}
+
+<center>
+
+    <h1 style="color:white;">Login</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p style="color:white;" ><font size="5">
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}<br>
+            {% for error in form.username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+            </font>
+        </p>
+        <p style="color:white;"><font size="5">
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}<br>
+            {% for error in form.password.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+             </font>
+        </p>
+        <font size="5"> <p style="color:white;">{{ form.remember_me() }} {{ form.remember_me.label }}</p> </font>
+        <font size="5"> <p style="color:white;">{{ form.submit() }}</p>  </font>
+    </form>
+<p style="color:white;">New User? <a href="{{ url_for('register') }}" style="color:white;">Click to Register!</a></p>
+    </center>
+{% endblock %}
+
+</body>
+
+</html>
