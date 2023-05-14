@@ -40,6 +40,35 @@ class User(UserMixin, db.Model):
 def load_user(id):
     return User.query.get(int(id))
 
+class Computers(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    img_url = db.Column(db.String, nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
+
+    def __init__(self, title, img_url, price, quantity):
+        self.title = title
+        self.img_url = img_url
+        self.price = price
+        self.quantity = quantity
+
+    def saveToDB(self):
+        db.session.add(self)
+        db.session.commit()
+        
+    def deleteFromDB(self):
+        db.session.delete(self)
+        db.session.commit()
+        
+    def to_dict(self):
+        return {"id": self.id, 
+                "title": self.title, 
+                "img_url": self.img_url, 
+                "price": self.price, 
+                "quantity": self.quantity}
+
+
 class Cart(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
