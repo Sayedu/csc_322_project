@@ -102,7 +102,7 @@ def computers():
 @app.route('/<int:computer_id>', methods=["GET"])
 def getComputer(computer_id):
     computer = Computers.query.get(computer_id)
-    return render_template('singlecomputer.html', computer = computer)
+    return render_template('computer.html', computer = computer)
 
 @login_required
 @app.route("/cart")
