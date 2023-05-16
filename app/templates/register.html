@@ -56,6 +56,43 @@
             {% endfor %}
         </font>
         </p>
+
+        <p style="color:white;" ><font size="5">
+            {{ form.card_name.label }}<br>
+            {{ form.card_name(size=32) }}<br>
+            {% for error in form.card_name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </font>
+        </p>
+        </p>
+        <p style="color:white;" ><font size="5">
+            {{ form.card_number.label }}<br>
+            {{ form.card_number(size=16) }}<br>
+            {% for error in form.card_number.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </font>
+        </p>
+        <p style="color:white;" ><font size="5">
+            {{ form.card_pin.label }}<br>
+            {{ form.card_pin(size=3) }}<br>
+            {% for error in form.card_pin.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </font>
+        </p>
+        <p style="color:white;" ><font size="5">
+            {{ form.user_balance.label }}<br>
+            {{ form.user_balance(size=5) }}<br>
+            {% for error in form.user_balance.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </font>
+        </p>
+
+
+
         <p>{{ form.submit() }}</p>
     </form>
     </center>

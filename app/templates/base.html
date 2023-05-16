@@ -7,6 +7,7 @@
 <style>
 body {
   font-family: Arial, Helvetica, sans-serif;
+
 }
 
 .topnav {
@@ -97,6 +98,8 @@ topnav .search-container {
   background: #ccc;
 }
 
+
+
 @media screen and (max-width: 600px) {
   .topnav .search-container {
     float: none;
@@ -115,7 +118,13 @@ topnav .search-container {
 }
 
 
+
+
+
+
 </style>
+
+
 
     </head>
     <body>
@@ -126,17 +135,42 @@ topnav .search-container {
             <a href="{{ url_for('login') }}">Login</a>
             {% else %}
             <a  href="{{ url_for('logout') }}">Sign Out</a>
-            <a  href="#">Pre built</a>
+            {% endif %}
+        <!--    <a  href="{{ url_for('prebuilt') }}">Pre built</a>   -->
+
+            <div class="dropdown">
+            <button class="dropbtn">Pre built
+            <i class="fa fa-caret-down"></i>
+            </button>
+                <div class="dropdown-content">
+                    <a href="prebuilt?pcType=Gaming">Gaming</a>
+                    <a href="prebuilt?pcType=Business">Business</a>
+                    <a href="prebuilt?pcType=Video Editing">Video Editing</a>
+                    <a href="prebuilt?pcType=Everyday">Everyday</a>
+
+
+                </div>
+            </div>
+
+            <!-- The dropdown menu -->
+
             <div class="dropdown">
             <button class="dropbtn">Computer-Parts
             <i class="fa fa-caret-down"></i>
             </button>
-            <div class="dropdown-content">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
+                <div class="dropdown-content">
+                    <a href="computerparts?part=Case">Case</a>
+                    <a href="computerparts?part=Cooler">Cooler</a>
+                    <a href="computerparts?part=Ram">Ram</a>
+                    <a href="computerparts?part=CPU">CPU</a>
+                    <a href="computerparts?part=GPU">GPU</a>
+                    <a href="computerparts?part=MB">Motherboard</a>
+                    <a href="computerparts?part=Storage">Storage</a>
+                    <a href="computerparts?part=Power">Power Supply</a>
+
+                </div>
             </div>
-            </div>
+
 
             <a  href="#" ; >Profile</a>
 
@@ -149,20 +183,7 @@ topnav .search-container {
 
             </div>
 
-
-
-
-
-
-             {% endif %}
-
-
         </div>
-
-
-
-
-
 
 
         {% block content %}{% endblock %}
