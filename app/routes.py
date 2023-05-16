@@ -24,6 +24,17 @@ def computerparts():
     return render_template('computerparts.html', part=part, info=zip(partsList, name, price, rating))
 
 
+@app.route('/cart')
+def cart():
+    return render_template('computerparts.html')
+
+
+@app.route('/review')
+def review():
+    return render_template('review.html')
+
+
+
 @app.route('/prebuilt')
 def prebuilt():
     pcType = request.args.get('pcType')
