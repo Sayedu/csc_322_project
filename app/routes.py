@@ -1,36 +1,39 @@
 from flask import render_template, flash, redirect, url_for
-from app import app, db
-from app.forms import LoginForm
-from app.models import User, Post
+from flask import request
 from flask_login import current_user, login_user
 from flask_login import logout_user
-from flask_login import login_required
-from flask import request
 from werkzeug.urls import url_parse
+
+from app import app, db
+from app.filter import partList, partFilter, pcFilter, computerList
+from app.forms import LoginForm
 from app.forms import RegistrationForm
-from app.forms import EditProfileForm
+from app.models import User, Post
 
 
 @app.route('/')
 @app.route('/index')
-@login_required
 def index():
-    user = {'username': 'Miguel'}
-    posts = [
-        {
-            'author': {'username': 'John'},
-            'body': 'Beautiful day in Portland!'
-        },
-        {
-            'author': {'username': 'Susan'},
-            'body': 'The Avengers movie was so cool!'
-        }
-    ]
-    return render_template("index.html", title='Home Page', posts=posts)
+    return render_template('index.html')
+
+
+@app.route('/computerparts')
+def computerparts():
+    part = request.args.get('part')
+    partsList, name, price, rating = partFilter(partList, part=part)
+    return render_template('computerparts.html', part=part, info=zip(partsList, name, price, rating))
+
+
+@app.route('/prebuilt')
+def prebuilt():
+    pcType = request.args.get('pcType')
+    pcList, name, price, rating, processorType, diskSize, ram, processorSpeed, gpu = pcFilter(computerList, pcType=pcType)
+    return render_template('prebuilt.html', pcType=pcType, pcinfo=zip(pcList, name, price, rating, processorType, diskSize, ram, processorSpeed, gpu))
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = LoginForm()
@@ -81,13 +84,7 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 
+@app.route('/rating')
+def rating():
+    return render_template('rating.html')
 
-@app.route('/user/<username>')
-@login_required
-def user(username):
-    user = User.query.filter_by(username=username).first_or_404()
-    posts = [
-        {'author': user, 'body': 'Test post #1'},
-        {'author': user, 'body': 'Test post #2'}
-    ]
-    return render_template('user.html', user=user, posts=posts)
