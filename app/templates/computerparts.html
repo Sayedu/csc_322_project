@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+
+    <head>
+
+    <style>
+ body{
+        background-image:url("https://e0.pxfuel.com/wallpapers/218/654/desktop-wallpaper-motherboard-android-compatible-blue-motherboard.jpg");
+        background-size: contain;
+        }
+
+
+
+.grid-container {
+  display: grid;
+  margin-left: 300px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 100px 0.5px;
+
+}
+
+.grid-item {
+  position: relative;
+  width: 200px; /* set the width */
+  height: 300px; /* set the height */
+  border: 1px solid black;
+  padding: 10px;
+  text-align: center;
+}
+
+.buttons {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 1;
+}
+
+.grid-item:hover .buttons {
+  display: block;
+}
+
+.button1,
+.button2 {
+  display: inline-block;
+  margin: 5px;
+  padding: 10px;
+  background-color: white;
+  color: black;
+  border: none;
+  cursor: pointer;
+}
+
+.button1:hover,
+.button2:hover {
+  background-color: black;
+  color: white;
+}
+
+
+.my-class {
+  font-size: 17px;
+}
+
+    </style>
+
+
+</head>
+    {% extends "base.html" %}
+    <body>
+{% block content %}
+
+{% if part != None %}
+
+<h1 style="color:white";>{{part}}</h1>
+
+{% endif %}
+
+
+
+    <div style="padding-left:16px">
+        {% if current_user.is_anonymous %}
+        <h2 style="color:white";> Check us out!</h2>
+
+        {% endif %}
+
+<div class="grid-container">
+{% for image_name, itemName, itemPrice, itemRating in info %}
+     <div class="grid-item">
+        <img src="{{ url_for('static', filename='images/' + image_name) }}" alt="{{ image_name }}" width="230" height="230">
+        <div class="buttons">
+        <button class="button1">Add to cart</button>
+        <button class="button2">Review</button>
+        </div>
+         <p class="my-class" style="color:white; font-weight: bold;" >{{ itemName }}</p>
+         <p class="my-class" style="color:white; font-weight: bold;" >${{ itemPrice }}</p>
+         <p class="my-class" style="color:white; font-weight: bold;" >{{ itemRating }} out of 5 rating</p>
+         </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}
+
+
+
+
+    </body>
+</html>
