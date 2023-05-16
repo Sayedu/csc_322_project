@@ -43,3 +43,55 @@ class User(UserMixin, db.Model):
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
+class Computers(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    img_url = db.Column(db.String, nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
+
+    def __init__(self, title, img_url, price, quantity):
+        self.title = title
+        self.img_url = img_url
+        self.price = price
+        self.quantity = quantity
+
+    def saveToDB(self):
+        db.session.add(self)
+        db.session.commit()
+        
+    def deleteFromDB(self):
+        db.session.delete(self)
+        db.session.commit()
+        
+    def to_dict(self):
+        return {"id": self.id, 
+                "title": self.title, 
+                "img_url": self.img_url, 
+                "price": self.price, 
+                "quantity": self.quantity}
+
+
+class Cart(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    computer_id = db.Column(db.Integer, db.ForeignKey('computer.id'), nullable=False)
+    quantity = db.Column(db.Integer, default=1)
+
+    def __init__(self, user_id, computer_id, quantity=1):
+        self.user_id = user_id
+        self.computer_id = computer_id
+        self.quantity = quantity
+
+    def update_quantity(self, quantity):
+        self.quantity += quantity
+        db.session.commit()
+
+    def saveToDB(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def deleteFromDB(self):
+        db.session.delete(self)
+        db.session.commit()
