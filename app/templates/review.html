@@ -102,14 +102,9 @@
   </div>
 
   <script>
-    /* Function to generate a unique item identifier*/
-    function generateItemId() {
-      return 'item-' + Math.random().toString(36).substr(2, 9);
-    }
-
-    /* Function to update the rating system graph*/
-    function updateRatingGraph(itemId) {
-      var ratings = JSON.parse(localStorage.getItem(itemId)) || [];
+    /* Function to update the rating system graph.*/
+    function updateRatingGraph() {
+      var ratings = JSON.parse(localStorage.getItem('ratings')) || [];
 
       var totalRatings = 0;
       var totalPoints = 0;
@@ -123,24 +118,23 @@
       document.getElementById('average-rating').textContent = averageRating.toFixed(1);
 
       ratings.forEach(function(rating) {
-        var ratingCountElement = document.getElementById('rating-count-' + rating.rating + '-' + itemId);
+        var ratingCountElement = document.getElementById('rating-count-' + rating.rating);
         ratingCountElement.textContent = rating.count;
 
-        var ratingGraphBarFillElement = document.querySelector('.rating-' + rating.rating + '-' + itemId + ' .rating-graph-bar-fill');
+        var ratingGraphBarFillElement = document.querySelector('.rating-' + rating.rating + ' .rating-graph-bar-fill');
         var fillPercentage = (rating.count / totalRatings) * 100;
         ratingGraphBarFillElement.style.width = fillPercentage + '%';
       });
     }
 
-    /* Function to handle the form submission*/
+    /* Function to handle the form submission.*/
     function handleFormSubmit(event) {
       event.preventDefault();
 
       var ratingSelect = document.getElementById('rating');
       var selectedRating = parseInt(ratingSelect.value, 10);
 
-      var itemId = event.target.getAttribute('data-item-id');
-      var ratings = JSON.parse(localStorage.getItem(itemId)) || [];
+      var ratings = JSON.parse(localStorage.getItem('ratings')) || [];
 
       var existingRating = ratings.find(function(rating) {
         return rating.rating === selectedRating;
@@ -152,22 +146,16 @@
         ratings.push({ rating: selectedRating, count: 1 });
       }
 
-      localStorage.setItem(itemId, JSON.stringify(ratings));
-      updateRatingGraph(itemId);
+      localStorage.setItem('ratings', JSON.stringify(ratings));
+      updateRatingGraph();
     }
 
-    /* Generate a unique item identifier for this item*/
-    var itemId = generateItemId();
-
-    /* Set the item identifier as a data attribute on the rating form*/
+    /* Add event listener to the form submission.*/
     var ratingForm = document.getElementById('rating-form');
-    ratingForm.setAttribute('data-item-id', itemId);
-
-    /* Add event listener to the rating form submission*/
     ratingForm.addEventListener('submit', handleFormSubmit);
 
-    /* Initialize the rating graph*/
-    updateRatingGraph(itemId);
+    /* Call the function to update the rating system graph.*/
+    updateRatingGraph();
   </script>
 </body>
 </html>
