@@ -15,8 +15,10 @@ class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
-
-
+    card_number = StringField('Card Number', validators=[DataRequired()])
+    card_name = StringField('Card Number', validators=[DataRequired()])
+    card_pin = StringField('Card Number', validators=[DataRequired()])
+    balance = StringField('Amount you want to deposit')
 
 
     def validate_username(self, username):

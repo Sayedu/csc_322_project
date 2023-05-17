@@ -12,14 +12,24 @@
 
 
     </style>
-
+ <title>Computer Parts and Builds</title>
 
 </head>
     {% extends "base.html" %}
     <body>
 {% block content %}
 
-<h1 style="color:white">HOME PAGE</h1>
+
+<h1 style="color:white">Computer Parts and Builds</h1>
+
+    <form action="/" method="POST">
+        <label for="sort_by">Sort by:</label>
+        <select name="sort_by" id="sort_by">
+            <option value="model">Model</option>
+            <option value="year">Year</option>
+        </select>
+        <input type="submit" value="Sort">
+    </form>
 
 {% endblock %}
 
