@@ -1,0 +1,18 @@
+Group A CSC322 report
+Required items:
+1 GUI: A logged in user is shown a different page compared to a user who does not have an account. 100%
+2 Suggested computer builds for different types of computing needs: Provided a section for users to explore pre-built computers that they might be interested in. 100%
+3 Visitors can freely browse the available items in the store without the need of logging in and can provide comments on all items: Created a feature that allowed users to browse our site without the need to register or login to the website. 100%
+4 Deposit money: Implemented this section with the registration feature which means that users who are registering an account are able to deposit any amount of money they want. 100%
+5 The system automatically check the compatibility of different components: 0%
+6 Rating system: Allow for customers and users to rate products from 1 star which means the worst to 5 stars which represents the best. 88%
+7 Compliments system: 40%
+8 Warning system: created a rating system but did not allow for bad rated products to be removed after 3 warnings. 50%
+9 Language checking(taboo words): 0%
+10 Creative feature: Created a sort by feature that allowed for users to filter our products based on specific filters such as year and model. 60%
+
+Evaluation of each team member: 
+HaoLan Li: Sayedul Islam: 90%, Mohammed Mamun: 80%, Tafhim Khan: 80%.
+Sayedul Islam: Mohammed Mamun: 85%, Tafhim Khan: 85%, HaoLan Li: 85%
+Mohammed Mamun: Sayedul Islam: 90%, Tafhim Khan: 85%, HaoLan Li: 85%
+Tafhim Khan: Mohammed Mamun: 85%, Sayedul Islam: 90%, HaoLan Li: 85%
