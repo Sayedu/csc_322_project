@@ -48,7 +48,7 @@
   <h1>Group A Rating System</h1>
 
   <h2>Rate the item:</h2>
-  <form action="/rate" method="post">
+  <form id="rating-form">
     <label for="rating">Rating:</label>
     <select name="rating" id="rating">
       <option value="1">1 star(worst)</option>
@@ -102,17 +102,16 @@
   </div>
 
   <script>
-    /* Sample JavaScript code to update the rating system graph dynamically. */
-    var ratings = [
-      { rating: 5, count: 30 },
-      { rating: 4, count: 21 },
-      { rating: 3, count: 13 },
-      { rating: 2, count: 9 },
-      { rating: 1, count: 7 }
-    ];
-
     /* Function to update the rating system graph. */
     function updateRatingGraph() {
+      var ratings = [
+        { rating: 5, count: parseInt(document.getElementById('rating-count-5').textContent) },
+        { rating: 4, count: parseInt(document.getElementById('rating-count-4').textContent) },
+        { rating: 3, count: parseInt(document.getElementById('rating-count-3').textContent) },
+        { rating: 2, count: parseInt(document.getElementById('rating-count-2').textContent) },
+        { rating: 1, count: parseInt(document.getElementById('rating-count-1').textContent) }
+      ];
+
       var totalRatings = 0;
       var totalPoints = 0;
 
@@ -125,14 +124,23 @@
       document.getElementById('average-rating').textContent = averageRating.toFixed(1);
 
       ratings.forEach(function(rating) {
-        var ratingCountElement = document.getElementById('rating-count-' + rating.rating);
-        ratingCountElement.textContent = rating.count;
-
         var ratingGraphBarFillElement = document.querySelector('.rating-' + rating.rating + ' .rating-graph-bar-fill');
         var fillPercentage = (rating.count / totalRatings) * 100;
         ratingGraphBarFillElement.style.width = fillPercentage + '%';
       });
     }
+
+    /* Add event listener to the rating form */
+    document.getElementById('rating-form').addEventListener('submit', function(event) {
+      event.preventDefault(); /* Prevent the form from submitting */
+
+      var selectedRating = document.getElementById('rating').value;
+      var ratingCountElement = document.getElementById('rating-count-' + selectedRating);
+      var currentCount = parseInt(ratingCountElement.textContent);
+      ratingCountElement.textContent = currentCount + 1;
+
+      updateRatingGraph();
+    });
 
     /* Call the function to update the rating system graph. */
     updateRatingGraph();
