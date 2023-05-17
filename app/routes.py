@@ -12,9 +12,25 @@ from app.models import User, Post
 
 
 @app.route('/')
-@app.route('/index')
+@app.route('/index', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    per_page = 2  # Number of builds per page
+    total_pages = len(builds) // per_page + (len(builds) % per_page > 0)
+    current_page = int(request.args.get('page', 1))
+    start = (current_page - 1) * per_page
+    end = start + per_page
+
+    if request.method == 'POST':
+        sort_by = request.form.get('sort_by')
+
+        if sort_by == 'model':
+            builds.sort(key=lambda b: b.get_model())
+        elif sort_by == 'year':
+            builds.sort(key=lambda b: b.get_year())
+
+    paginated_builds = builds[start:end]
+
+    return render_template('index.html', builds=paginated_builds, current_page=current_page, total_pages=total_pages)
 
 
 @app.route('/computerparts')

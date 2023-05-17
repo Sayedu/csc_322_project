@@ -9,9 +9,10 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
-
-
-
+    card_number = db.Column(db.Integer(), index=True, unique=True )
+    card_name = db.Column(db.String(64), index=True, unique=True)
+    card_pint = db.Column(db.Integer(), index=True, unique=True )
+    balance = db.Column(db.Integer(), index=True, unique=True )
     password_hash = db.Column(db.String(128))
     posts = db.relationship('Post', backref='author', lazy='dynamic')
 

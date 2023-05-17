@@ -44,3 +44,37 @@ def pcFilter(computerList, pcType=None):
 
 print(partFilter(partList, "Case"))
 print(pcFilter(computerList, "Gaming"))
+
+
+class ComputerPart:
+    def init(self, model, year):
+        self.model = model
+        self.year = year
+
+
+class ComputerBuild:
+    def init(self, parts):
+        self.parts = parts
+
+    def get_model(self):
+        return [part.model for part in self.parts]
+
+    def get_year(self):
+        return [part.year for part in self.parts]
+
+
+# create a list of ComputerPart objects
+parts = [
+    ComputerPart("Intel Core i9-11900K", 2021),
+    ComputerPart("AMD Ryzen 9 5900X", 2020),
+    ComputerPart("Nvidia GeForce RTX 3080", 2021),
+    ComputerPart("Samsung 970 EVO Plus", 2019),
+    ComputerPart("Corsair Vengeance RGB Pro", 2020)
+]
+
+# create a list of ComputerBuild objects
+builds = [
+    ComputerBuild([parts[0], parts[2], parts[3]]),
+    ComputerBuild([parts[1], parts[4], parts[3]]),
+    ComputerBuild([parts[0], parts[1], parts[2], parts[3], parts[4]])
+]
