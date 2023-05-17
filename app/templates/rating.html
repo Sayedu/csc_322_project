@@ -92,7 +92,7 @@
       </div>
       <span id="rating-count-2">0</span>
     </div>
-    <div class="rating-graph">
+       <div class="rating-graph">
       <span class="rating-label">1 Star:</span>
       <div class="rating-graph-bar rating-1">
         <div class="rating-graph-bar-fill" style="width: 0;"></div>
@@ -102,15 +102,9 @@
   </div>
 
   <script>
-    /* Function to update the rating system graph. */
+    /* Function to update the rating system graph.*/
     function updateRatingGraph() {
-      var ratings = [
-        { rating: 5, count: parseInt(document.getElementById('rating-count-5').textContent) },
-        { rating: 4, count: parseInt(document.getElementById('rating-count-4').textContent) },
-        { rating: 3, count: parseInt(document.getElementById('rating-count-3').textContent) },
-        { rating: 2, count: parseInt(document.getElementById('rating-count-2').textContent) },
-        { rating: 1, count: parseInt(document.getElementById('rating-count-1').textContent) }
-      ];
+      var ratings = JSON.parse(localStorage.getItem('ratings')) || [];
 
       var totalRatings = 0;
       var totalPoints = 0;
@@ -124,25 +118,43 @@
       document.getElementById('average-rating').textContent = averageRating.toFixed(1);
 
       ratings.forEach(function(rating) {
+        var ratingCountElement = document.getElementById('rating-count-' + rating.rating);
+        ratingCountElement.textContent = rating.count;
+
         var ratingGraphBarFillElement = document.querySelector('.rating-' + rating.rating + ' .rating-graph-bar-fill');
         var fillPercentage = (rating.count / totalRatings) * 100;
         ratingGraphBarFillElement.style.width = fillPercentage + '%';
       });
     }
 
-    /* Add event listener to the rating form */
-    document.getElementById('rating-form').addEventListener('submit', function(event) {
-      event.preventDefault(); /* Prevent the form from submitting */
+    /* Function to handle the form submission.*/
+    function handleFormSubmit(event) {
+      event.preventDefault();
 
-      var selectedRating = document.getElementById('rating').value;
-      var ratingCountElement = document.getElementById('rating-count-' + selectedRating);
-      var currentCount = parseInt(ratingCountElement.textContent);
-      ratingCountElement.textContent = currentCount + 1;
+      var ratingSelect = document.getElementById('rating');
+      var selectedRating = parseInt(ratingSelect.value, 10);
 
+      var ratings = JSON.parse(localStorage.getItem('ratings')) || [];
+
+      var existingRating = ratings.find(function(rating) {
+        return rating.rating === selectedRating;
+      });
+
+      if (existingRating) {
+        existingRating.count++;
+      } else {
+        ratings.push({ rating: selectedRating, count: 1 });
+      }
+
+      localStorage.setItem('ratings', JSON.stringify(ratings));
       updateRatingGraph();
-    });
+    }
 
-    /* Call the function to update the rating system graph. */
+    /* Add event listener to the form submission.*/
+    var ratingForm = document.getElementById('rating-form');
+    ratingForm.addEventListener('submit', handleFormSubmit);
+
+    /* Call the function to update the rating system graph.*/
     updateRatingGraph();
   </script>
 </body>
