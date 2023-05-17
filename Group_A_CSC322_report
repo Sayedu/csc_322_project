@@ -8,7 +8,7 @@ Required items:
 6 Rating system: Allow for customers and users to rate products from 1 star which means the worst to 5 stars which represents the best. 88%
 7 Compliments system: 40%
 8 Warning system: created a rating system but did not allow for bad rated products to be removed after 3 warnings. 50%
-9 Language checking(taboo words): 0%
+9 Language checking(taboo words): 50%   * we had this part down but no comment section*
 10 Creative feature: Created a sort by feature that allowed for users to filter our products based on specific filters such as year and model. 60%
 
 Evaluation of each team member: 
